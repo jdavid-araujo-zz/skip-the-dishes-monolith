@@ -1,7 +1,6 @@
-package com.david.dishes.domain;
+package com.david.dishes.domain.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,10 +8,9 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -21,12 +19,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name = "tb_product")
+@Table(name = "tb_customer")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Product implements Serializable {
+public class Customer implements Serializable {
 
-	private static final long serialVersionUID = 5162132938337609066L;
+	private static final long serialVersionUID = 4530839426855428197L;
 
 	@Id
 	@EqualsAndHashCode.Include
@@ -34,16 +32,16 @@ public class Product implements Serializable {
 
 	private String name;
 
-	private String description;
+	@Email
+	private String email;
 
-	private BigDecimal value;
+	private String phone;
 
-	@ManyToOne
-	@JoinColumn(name = "company_id")
-	private Company company;
+	@OneToMany(mappedBy = "customer")
+	private Set<Address> addresses = new HashSet<>();
 
-	@OneToMany(mappedBy = "product")
-	private Set<OrderItem> items = new HashSet<>();
+	@OneToMany(mappedBy = "customer")
+	private Set<Order> order = new HashSet<>();
 
 	@Column(name = "created_at")
 	@CreatedDate

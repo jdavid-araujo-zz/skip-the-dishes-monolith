@@ -8,7 +8,7 @@ create table tb_address (
   customer_id bigint not null,
   created_at timestamp WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   updated_at timestamp WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-   
+
    primary key (id),
    
    constraint fk_customer_address foreign key (customer_id) references tb_customer(id) 

@@ -1,16 +1,14 @@
-package com.david.dishes.domain;
+package com.david.dishes.domain.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -20,32 +18,34 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name = "tb_address")
+@IdClass(value = OrderItem.class)
+@Table(name = "tb_order_item")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Addresss implements Serializable {
+public class OrderItem implements Serializable {
 
-	private static final long serialVersionUID = 7783618201035742461L;
+	private static final long serialVersionUID = 2434987160210870547L;
 
 	@Id
+	@Column(name = "order_id")
 	@EqualsAndHashCode.Include
-	private Long id;
+	private Long prderId;
 
-	private String country;
+	@Id
+	@Column(name = "product_id")
+	@EqualsAndHashCode.Include
+	private Long productId;
 
-	private String city;
-
-	private String postal;
-
-	@Column(name = "street_house")
-	private String streetHouse;
+	@Column
+	private Long quantity;
 
 	@ManyToOne
-	@JoinColumn(name = "customer_id")
-	private Customer customer;
+	@JoinColumn(name = "order_id", referencedColumnName = "id", insertable = false, updatable = false)
+	private Order order;
 
-	@OneToMany
-	private Set<Order> orders = new HashSet<>();
+	@ManyToOne
+	@JoinColumn(name = "product_id", referencedColumnName = "id", insertable = false, updatable = false)
+	private Product product;
 
 	@Column(name = "created_at")
 	@CreatedDate

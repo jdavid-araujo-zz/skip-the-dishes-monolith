@@ -1,4 +1,4 @@
-package com.david.dishes.domain;
+package com.david.dishes.domain.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
+
+import com.david.dishes.domain.util.enumeration.OrderStatus;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,7 +32,7 @@ public class OrderLog implements Serializable {
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
-	private String status;
+	private OrderStatus status;
 
 	private String description;
 

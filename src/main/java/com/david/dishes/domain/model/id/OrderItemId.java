@@ -1,4 +1,4 @@
-package com.david.dishes.domain.id;
+package com.david.dishes.domain.model.id;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
